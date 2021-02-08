@@ -14,7 +14,8 @@ mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
-    useUnifiedTopology: true 
+    useUnifiedTopology: true,
+    family:4
 });
 
 // Read JSON files
@@ -34,6 +35,7 @@ const importData = async () => {
 
 // Delete data
 const deleteData = async () => {
+    
     try {
         await Bootcamp.deleteMany();
 
@@ -42,6 +44,14 @@ const deleteData = async () => {
     } catch (err) {
         console.error(err);
     }
+   
+    /*
+    let conn = mongoose.connection;
+    let coll = conn.collection('bootcamps');
+    await coll.deleteMany({});
+    console.log('Data Destroyed...'.red.inverse);
+    process.exit();
+    */
 }
 
 if(process.argv[2] === '-i') {
